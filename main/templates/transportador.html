@@ -1,30 +1,30 @@
 {% extends 'base.html' %}
 {% load bootstrap_icons %}
 {% load bootstrap5 %}
-{% block content_title %}{{ cliente.nome }}{% endblock %}
+{% block content_title %}{{ transportador.nome }}{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col">
-                <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+                <p><strong>Telefone:</strong> {{ transportador.telefone }}</p>
             </div>
             <div class="col">
-                <p><strong>Data de Nascimento:</strong> {{ cliente.data_nascimento|date:"SHORT_DATE_FORMAT" }}</p>
+                <p><strong>Data de Nascimento:</strong> {{ transportador.data_nascimento|date:"SHORT_DATE_FORMAT" }}</p>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <p><strong>Endereço:</strong> {{ cliente.endereco }} - {{ cliente.bairro }}</p>
+                <p><strong>Endereço:</strong> {{ transportador.endereco }} - {{ transportador.bairro }}</p>
             </div>
             <div class="col">
-                <p><strong>Cidade:</strong> {{ cliente.cidade }} / {{ cliente.estado }}</p>
+                <p><strong>Cidade:</strong> {{ transportador.cidade }} / {{ transportador.estado }}</p>
             </div>
         </div>
     </div>
     <div class="container">
         <br>
         <h5>Notas Fiscais</h5>
-        {% if cliente.notafiscal_set.exists %}
+        {% if transportador.notafiscal_set.exists %}
             <table class="table">
                 <thead>
                 <tr>
@@ -34,26 +34,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for nota_fiscal in cliente.notafiscal_set.all %}
+                {% for nota_fiscal in transportador.notafiscal_set.all %}
                     <tr>
                         <td>
                             <a class='text-reset text-decoration-none' href="{{ nota_fiscal.get_absolute_url }}">{% bs_icon 'info-square'%}</a>
                         </td>
                         <td>{{ nota_fiscal.numero }}</td>
-                        <td>{{ nota_fiscal.pontuacao_cliente }}</td>
+                        <td>{{ nota_fiscal.pontuacao_transportador }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="2">Total</td>
-                        <td>{{ cliente.get_pontuacao_total }}</td>
-                    </tr>
-                </tfoot>
             </table>
         {% else %}
             <div class="alert alert-warning" role="alert">
-                Não existem notas fiscais cadastradas para esse cliente.
+                Não existem notas fiscais cadastradas para esse transportador.
             </div>
         {% endif %}
     </div>

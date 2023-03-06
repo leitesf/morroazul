@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from main.forms import PasswordForm
-from main.models import Cliente, Usuario
+from main.models import Cliente, Usuario, NotaFiscal, Transportador
 from main.utils import gerar_menu
 
 
@@ -12,6 +12,20 @@ def show_cliente(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     side_menu_list = gerar_menu(request.user)
     return render(request, 'cliente.html', locals())
+
+
+@login_required
+def show_transportador(request, transportador_id):
+    transportador = get_object_or_404(Transportador, id=transportador_id)
+    side_menu_list = gerar_menu(request.user)
+    return render(request, 'transportador.html', locals())
+
+
+@login_required
+def show_nota_fiscal(request, nota_fiscal_id):
+    nota_fiscal = get_object_or_404(NotaFiscal, id=nota_fiscal_id)
+    side_menu_list = gerar_menu(request.user)
+    return render(request, 'nota_fiscal.html', locals())
 
 
 @permission_required('main.add_usuario')

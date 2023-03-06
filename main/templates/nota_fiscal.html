@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+{% load bootstrap5 %}
+{% block content_title %}NF {{ nota_fiscal.numero }} ({{ nota_fiscal.cliente.nome }}){% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p><strong>Item:</strong> {{ nota_fiscal.item }}</p>
+            </div>
+            <div class="col">
+                <p><strong>Descricao:</strong> {{ nota_fiscal.descricao }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><strong>Valor:</strong> {{ nota_fiscal.valor }}</p>
+            </div>
+            <div class="col">
+                <p><strong>Distância em KM:</strong> {{ nota_fiscal.km }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><strong>Cliente:</strong> {{ nota_fiscal.cliente }}</p>
+            </div>
+            <div class="col">
+                <p><strong>Pontos obtidos:</strong> {{ nota_fiscal.pontuacao_cliente }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><strong>Trasportador:</strong> {{ nota_fiscal.transportador }}</p>
+            </div>
+            <div class="col">
+                <p><strong>Pontos obtidos:</strong> {{ nota_fiscal.pontuacao_transportador }}</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

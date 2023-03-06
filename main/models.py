@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import Sum
 from localflavor.br.models import BRStateField
 
 
@@ -35,6 +36,13 @@ class Cliente(Pessoa):
     def get_delete_url(self):
         return '/admin/main/cliente/{}/delete/'.format(self.id)
 
+    def get_pontuacao_total(self):
+        if self.notafiscal_set.exists():
+            return self.notafiscal_set.aggregate(Sum('pontuacao_cliente'))['pontuacao_cliente__sum']
+        else:
+            return 0
+
+
 
 class Transportador(Pessoa):
     class Meta:
@@ -54,6 +62,12 @@ class Transportador(Pessoa):
     def get_delete_url(self):
         return '/admin/main/transportador/{}/delete/'.format(self.id)
 
+    def get_pontuacao_total(self):
+        if self.notafiscal_set.exists():
+            return self.notafiscal_set.aggregate(Sum('pontuacao_transportador'))['pontuacao_transportador__sum']
+        else:
+            return 0
+
 
 class NotaFiscal(models.Model):
     numero = models.CharField("Número", max_length=100, unique=True)
@@ -63,6 +77,8 @@ class NotaFiscal(models.Model):
     km = models.IntegerField("Distância em Km")
     cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.RESTRICT)
     transportador = models.ForeignKey(Transportador, null=True, blank=True, on_delete=models.RESTRICT)
+    pontuacao_cliente = models.IntegerField("Pontuação do Cliente")
+    pontuacao_transportador = models.IntegerField("Pontuação do Transportador")
 
     class Meta:
         verbose_name = 'Nota Fiscal'
@@ -73,7 +89,7 @@ class NotaFiscal(models.Model):
         return 'NF {}'.format(self.numero)
 
     def get_absolute_url(self):
-        return '/notafiscal/{}'.format(self.id)
+        return '/nota_fiscal/{}'.format(self.id)
 
     def get_edit_url(self):
         return '/admin/main/notafiscal/{}/change/'.format(self.id)
