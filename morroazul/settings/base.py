@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django_middleware_global_request.middleware.GlobalRequestMiddleware',
 ]
 
-ROOT_URLCONF = 'sistema_base_r2.urls'
+ROOT_URLCONF = 'morroazul.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'sistema_base_r2.wsgi.application'
+WSGI_APPLICATION = 'morroazul.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -109,13 +109,13 @@ AUTH_USER_MODEL = 'main.Usuario'
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Sistema Base",
+    "site_title": "Morro Azul",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Sistema Base",
+    "site_header": "Morro Azul",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Sistema Base",
+    "site_brand": "Morro Azul",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": "img/logo/logo.jpeg",
@@ -195,14 +195,14 @@ JAZZMIN_SETTINGS = {
     "order_with_respect_to": ["main", "autenticacao"],
 
     # Custom links to append to app groups, keyed on app name
-    # "custom_links": {
-    #     "auth": [{
-    #         "name": "Usuários",
-    #         "url": "/admin/main/usuario/",
-    #         "icon": "fas fa-user",
-    #         "permissions": ["auth.add_usuario"]
-    #     }]
-    # },
+    "custom_links": {
+        "auth": [{
+            "name": "Usuários",
+            "url": "/admin/main/usuario/",
+            "icon": "fas fa-user",
+            "permissions": ["auth.add_usuario"]
+        }]
+    },
 
     # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2
     # for the full list of 5.13.0 free icon classes

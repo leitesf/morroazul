@@ -1,4 +1,4 @@
-"""sistema_base_r2 URL Configuration
+"""morroazul URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from main import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('cliente/<int:cliente_id>/', views.show_cliente),
+    path('usuario/<int:usuario_id>/alterar_senha/', views.alterar_senha),
 ]

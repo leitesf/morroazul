@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+{% load bootstrap5 %}
+{% block content_title %}{{ cliente.nome }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p><strong>Telefone:</strong> {{ cliente.telefone }}</p>
+            </div>
+            <div class="col">
+                <p><strong>Data de Nascimento:</strong> {{ cliente.data_nascimento|date:"SHORT_DATE_FORMAT" }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><strong>Endereço:</strong> {{ cliente.endereco }} - {{ cliente.bairro }}</p>
+            </div>
+            <div class="col">
+                <p><strong>Cidade:</strong> {{ cliente.cidade }} / {{ cliente.estado }}</p>
+            </div>
+        </div>
+    </div>
+{#    <div class="container">#}
+{#        <br>#}
+{#        <h5>Imóveis</h5>#}
+{#        {% if cliente.imovel_set.exists %}#}
+{#            <table class="table">#}
+{#                <thead>#}
+{#                <tr>#}
+{#                    <th scope="col">#</th>#}
+{#                    <th scope="col">Endereço</th>#}
+{#                    <th scope="col">Tamanho</th>#}
+{#                    <th scope="col">Quantidade de Cômodos</th>#}
+{#                </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                {% for imovel in cliente.imovel_set.all %}#}
+{#                    <tr>#}
+{#                        <td>#}
+{#                            <a class='text-reset text-decoration-none' href="{{ imovel.get_absolute_url }}">{% bs_icon 'info-square'%}</a>#}
+{#                        </td>#}
+{#                        <td>{{ imovel.endereco }} - {{ imovel.bairro }}, {{ imovel.cidade }} / {{ imovel.estado }}</td>#}
+{#                        <td>{{ imovel.tamanho|default_if_none:"-" }}</td>#}
+{#                        <td>{{ imovel.quantidade_comodos|default_if_none:"-" }}</td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#                </tbody>#}
+{#            </table>#}
+{#        {% else %}#}
+{#            <div class="alert alert-warning" role="alert">#}
+{#                Não existem imóveis cadastrados para esse cliente.#}
+{#            </div>#}
+{#        {% endif %}#}
+{#    </div>#}
+
+{% endblock %}
