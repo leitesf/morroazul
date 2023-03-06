@@ -43,7 +43,6 @@ class Cliente(Pessoa):
             return 0
 
 
-
 class Transportador(Pessoa):
     class Meta:
         verbose_name = 'Transportador'
