@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import Sum
 from localflavor.br.models import BRStateField
+from solo.models import SingletonModel
 
 
 class Pessoa(models.Model):
@@ -96,6 +97,12 @@ class NotaFiscal(models.Model):
     def get_delete_url(self):
         return '/admin/main/notafiscal/{}/delete/'.format(self.id)
 
+    def get_valor_cliente(self):
+        return int(self.valor/ConfiguracaoPontuacao.objects.get().reais_por_ponto)
+
+    def get_valor_transportador(self):
+        return int(self.km/ConfiguracaoPontuacao.objects.get().kms_por_ponto)
+
 
 class Usuario(AbstractUser):
     contato = models.CharField("Contato", max_length=100)
@@ -110,3 +117,22 @@ class Usuario(AbstractUser):
 
     def get_edit_url(self):
         return '/admin/main/usuario/{}/change/'.format(self.id)
+
+
+class ConfiguracaoPontuacao(SingletonModel):
+    kms_por_ponto = models.IntegerField(
+        "KMs por Ponto",
+        default=100,
+        help_text="Quantos KM serão necessários para gerar 1 ponto pro transportador."
+    )
+    reais_por_ponto = models.IntegerField(
+        "Reais por Ponto",
+        default=100,
+        help_text="Quantos reais serão necessários para gerar 1 ponto pro cliente."
+    )
+
+    def __str__(self):
+        return "Configuração de Pontos"
+
+    class Meta:
+        verbose_name = "Configuração de Pontos"

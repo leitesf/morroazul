@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 from django_middleware_global_request import get_request
+from solo.admin import SingletonModelAdmin
 
 from main.forms import ClienteForm, UsuarioForm, TransportadorForm, NotaFiscalForm
-from main.models import Cliente, Usuario, NotaFiscal, Transportador
+from main.models import Cliente, Usuario, NotaFiscal, Transportador, ConfiguracaoPontuacao
 from main.utils import links_no_admin
 
 
@@ -120,3 +121,4 @@ admin.site.register(Cliente, ClienteAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(NotaFiscal, NotaFiscalAdmin)
 admin.site.register(Transportador, TransportadorAdmin)
+admin.site.register(ConfiguracaoPontuacao, SingletonModelAdmin)

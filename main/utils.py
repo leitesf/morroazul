@@ -56,7 +56,35 @@ def gerar_menu(usuario):
             'has_module_perms': True,
             'models':
                 [
-                    {'name': 'Grupos', 'object_name': 'Group', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/auth/group/', 'add_url': '/admin/auth/group/add/', 'view_only': False, 'url': '/admin/auth/group/', 'model_str': 'auth.group', 'icon': 'fas fa-users'}, {'name': 'Usuários', 'url': '/admin/main/usuario/', 'children': None, 'new_window': False, 'icon': 'fas fa-user'}], 'icon': 'fas fa-users-cog'
+                    {
+                        'name': 'Grupos',
+                        'object_name': 'Group',
+                        'perms':
+                            {
+                                'add': True, 'change': True, 'delete': True, 'view': True
+                            },
+                        'admin_url': '/admin/auth/group/',
+                        'add_url': '/admin/auth/group/add/',
+                        'view_only': False,
+                        'url': '/admin/auth/group/',
+                        'model_str': 'auth.group',
+                        'icon': 'fas fa-users'
+                    },
+                    {
+                        'name': 'Usuários',
+                        'url': '/admin/main/usuario/',
+                        'children': None,
+                        'new_window': False,
+                        'icon': 'fas fa-user'
+                    },
+                    {
+                        'name': 'Configuração de Pontuação',
+                        'url': '/admin/main/configuracaopontuacao/',
+                        'children': None,
+                        'new_window': False,
+                        'icon': 'fas fa-tools'
+                    }
+                ], 'icon': 'fas fa-users-cog'
         }
         )
     return side_menu_list
