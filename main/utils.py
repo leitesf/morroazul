@@ -16,6 +16,14 @@ def gerar_menu(usuario):
         side_menu_list[0]['models'].append(
             {'name': 'Clientes', 'object_name': 'Cliente', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/cliente/', 'add_url': '/admin/main/cliente/add/', 'view_only': False, 'url': '/admin/main/cliente/', 'model_str': 'main.cliente', 'icon': 'fas fa-user-tag'}
         )
+    if usuario.has_perm('main.view_notafiscal'):
+        side_menu_list[0]['models'].append(
+            {'name': 'Notas Fiscais', 'object_name': 'Nota Fiscal', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/notafiscal/', 'add_url': '/admin/main/notafiscal/add/', 'view_only': False, 'url': '/admin/main/notafiscal/', 'model_str': 'main.notafiscal', 'icon': 'fas fa-receipt'}
+        )
+    if usuario.has_perm('main.view_transportador'):
+        side_menu_list[0]['models'].append(
+            {'name': 'Transportadores', 'object_name': 'Transportador', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/transportador/', 'add_url': '/admin/main/transportador/add/', 'view_only': False, 'url': '/admin/main/transportador/', 'model_str': 'main.transportador', 'icon': 'fas fa-truck'}
+        )
     # if usuario.has_perm('main.view_configuracaopercentualcorretor'):
     #     side_menu_list[0]['models'].append(
     #         {'name': 'Configurações de Percentual do Corretor', 'object_name': 'ConfiguracaoPercentualCorretor', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/configuracaopercentualcorretor/', 'add_url': '/admin/main/configuracaopercentualcorretor/add/', 'view_only': False, 'url': '/admin/main/configuracaopercentualcorretor/', 'model_str': 'main.configuracaopercentualcorretor', 'icon': 'fas fa-percentage'}

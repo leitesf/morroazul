@@ -11,6 +11,18 @@ class ClienteForm(ModelForm):
         fields = ['nome', 'data_nascimento', 'telefone', 'endereco', 'bairro', 'cidade', 'estado']
 
 
+class TransportadorForm(ModelForm):
+    class Meta:
+        model = Transportador
+        fields = ['nome', 'data_nascimento', 'telefone', 'endereco', 'bairro', 'cidade', 'estado']
+
+
+class NotaFiscalForm(ModelForm):
+    class Meta:
+        model = NotaFiscal
+        fields = ['numero', 'item', 'descricao', 'valor', 'km', 'cliente', 'transportador']
+
+
 class UsuarioForm(ModelForm):
     class Meta:
         model = Usuario

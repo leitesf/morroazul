@@ -215,8 +215,8 @@ JAZZMIN_SETTINGS = {
         # "main.configuracaoprecoregularizacao": "fas fa-money-bill",
         # "main.configuracaovalortecnico": "fas fa-dollar-sign",
         # "main.imovel": "fas fa-building",
-        # "main.ordemservico": "fas fa-receipt",
-        # "main.tiporegularizacao": "fas fa-tags",
+        "main.notafiscal": "fas fa-receipt",
+        "main.transportador": "fas fa-truck",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
