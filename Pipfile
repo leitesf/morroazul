@@ -15,6 +15,7 @@ django-bootstrap-v5 = "*"
 django-bootstrap-icons = "*"
 django-middleware-global-request = "==0.3.1"
 whitenoise = "*"
+django-solo = "==2.0.0"
 
 [dev-packages]
 

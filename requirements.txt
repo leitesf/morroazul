@@ -12,4 +12,4 @@ django-middleware-global-request==0.3.1
 # django-fixture-magic
 whitenoise
 psycopg2
-django-solo
+django-solo==2.0.0
