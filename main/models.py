@@ -1,12 +1,16 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import Sum
-from localflavor.br.models import BRStateField
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from localflavor.br.models import BRStateField, BRCNPJField, BRCPFField
 from solo.models import SingletonModel
 
 
 class Pessoa(models.Model):
     nome = models.CharField("Nome", max_length=100)
+    cpf = BRCPFField("CPF", blank=True, null=True)
+    cnpj = BRCNPJField("CNPJ", blank=True, null=True)
     telefone = models.CharField("Telefone", max_length=100)
     endereco = models.CharField("Endereço", max_length=100)
     bairro = models.CharField("Bairro", max_length=100)
@@ -14,9 +18,13 @@ class Pessoa(models.Model):
     estado = BRStateField("Estado")
     data_nascimento = models.DateField("Data de Nascimento", blank=True, null=True)
     email = models.EmailField("E-Mail")
+    usuario = models.ForeignKey('main.Usuario', blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         abstract = True
+
+    def get_doc_oficial(self):
+        return self.cpf if self.cpf else self.cnpj
 
 
 class Cliente(Pessoa):
@@ -44,6 +52,19 @@ class Cliente(Pessoa):
             return 0
 
 
+@receiver(pre_save, sender=Cliente)
+def criar_usuario(sender, instance, **kwargs):
+    if not instance.usuario:
+        if not Usuario.objects.filter(username=instance.get_doc_oficial()):
+            usuario = Usuario.criar_usuario(instance)
+        else:
+            usuario = Usuario.objects.get(username=instance.get_doc_oficial())
+            usuario.atualizar_usuario(instance)
+        instance.usuario = usuario
+    else:
+        instance.usuario.atualizar_usuario(instance)
+
+
 class Transportador(Pessoa):
     class Meta:
         verbose_name = 'Transportador'
@@ -67,6 +88,19 @@ class Transportador(Pessoa):
             return self.notafiscal_set.aggregate(Sum('pontuacao_transportador'))['pontuacao_transportador__sum']
         else:
             return 0
+
+
+@receiver(pre_save, sender=Transportador)
+def criar_usuario(sender, instance, **kwargs):
+    if not instance.usuario:
+        if not Usuario.objects.filter(username=instance.get_doc_oficial()):
+            usuario = Usuario.criar_usuario(instance)
+        else:
+            usuario = Usuario.objects.get(username=instance.get_doc_oficial())
+            usuario.atualizar_usuario(instance)
+        instance.usuario = usuario
+    else:
+        instance.usuario.atualizar_usuario(instance)
 
 
 class NotaFiscal(models.Model):
@@ -117,6 +151,28 @@ class Usuario(AbstractUser):
 
     def get_edit_url(self):
         return '/admin/main/usuario/{}/change/'.format(self.id)
+
+    @classmethod
+    def criar_usuario(cls, pessoa):
+        usuario = cls.objects.create(
+            username=pessoa.get_doc_oficial(),
+            first_name=pessoa.nome.split(' ')[:1][0],
+            last_name=' '.join(pessoa.nome.split(' ')[1:]),
+            email=pessoa.email,
+            contato=pessoa.telefone,
+            data_nascimento=pessoa.data_nascimento
+        )
+        usuario.set_password(pessoa.get_doc_oficial())
+        usuario.save()
+        return usuario
+
+    def atualizar_usuario(self, pessoa):
+        self.first_name = pessoa.nome.split(' ')[:1][0]
+        self.last_name = ' '.join(pessoa.nome.split(' ')[1:])
+        self.email = pessoa.email
+        self.contato = pessoa.telefone
+        self.data_nascimento = pessoa.data_nascimento
+        self.save()
 
 
 class ConfiguracaoPontuacao(SingletonModel):

@@ -8,13 +8,41 @@ from django.forms.widgets import CheckboxSelectMultiple
 class ClienteForm(ModelForm):
     class Meta:
         model = Cliente
-        fields = ['nome', 'data_nascimento', 'telefone', 'endereco', 'bairro', 'cidade', 'estado']
+        fields = ['nome', 'cpf', 'cnpj', 'email', 'data_nascimento', 'telefone', 'endereco', 'bairro', 'cidade', 'estado']
+
+    def clean_cpf(self):
+        cpf = self.cleaned_data.get('cpf')
+        if self.data.get('cnpj') and cpf:
+            raise ValidationError(u'Informe somente um documento de identificação')
+        if not self.data.get('cnpj') and not cpf:
+            raise ValidationError(u'Informe pelo menos um documento de identificação')
+        return self.cleaned_data['cpf']
+
+    def clean_cnpj(self):
+        cnpj = self.cleaned_data.get('cnpj')
+        if self.data.get('cpf') and cnpj:
+            raise ValidationError(u'Informe somente um documento de identificação')
+        if not self.data.get('cpf') and not cnpj:
+            raise ValidationError(u'Informe pelo menos um documento de identificação')
+        return self.cleaned_data['cnpj']
 
 
 class TransportadorForm(ModelForm):
     class Meta:
         model = Transportador
-        fields = ['nome', 'data_nascimento', 'telefone', 'endereco', 'bairro', 'cidade', 'estado']
+        fields = ['nome', 'cpf', 'cnpj', 'email', 'data_nascimento', 'telefone', 'endereco', 'bairro', 'cidade', 'estado']
+
+    def clean_cpf(self):
+        cpf = self.cleaned_data.get('cpf')
+        if self.data.get('cnpj') and cpf:
+            raise ValidationError(u'Informe somente um documento de identificação')
+        return self.cleaned_data['cpf']
+
+    def clean_cnpj(self):
+        cnpj = self.cleaned_data.get('cnpj')
+        if self.data.get('cpf') and cnpj:
+            raise ValidationError(u'Informe somente um documento de identificação')
+        return self.cleaned_data['cnpj']
 
 
 class NotaFiscalForm(ModelForm):
