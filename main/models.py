@@ -32,6 +32,12 @@ class Cliente(Pessoa):
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
         ordering = ["nome"]
+        permissions = [
+            (
+                "nfs_cliente",
+                "Pode visualizar as próprias notas fiscais como cliente"
+            )
+        ]
 
     def __str__(self):
         return self.nome
@@ -70,6 +76,12 @@ class Transportador(Pessoa):
         verbose_name = 'Transportador'
         verbose_name_plural = 'Transportadores'
         ordering = ["nome"]
+        permissions = [
+            (
+                "nfs_transportador",
+                "Pode visualizar as próprias notas fiscais como transportador"
+            )
+        ]
 
     def __str__(self):
         return self.nome

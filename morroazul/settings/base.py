@@ -210,6 +210,20 @@ JAZZMIN_SETTINGS = {
                 "icon": "fas fa-tools",
                 "permissions": ["auth.add_configuracaopontuacao"]
             },
+        ],
+        "main": [
+            {
+                "name": "Minhas NFs como Cliente",
+                "url": "/minhas_nfs_cliente/",
+                "icon": "fas fa-receipt",
+                "permissions": ["main.nfs_cliente"]
+            },
+            {
+                "name": "Minhas NFs como Transportador",
+                "url": "/minhas_nfs_transportador/",
+                "icon": "fas fa-receipt",
+                "permissions": ["main.nfs_transportador"]
+            }
         ]
     },
 
@@ -220,10 +234,6 @@ JAZZMIN_SETTINGS = {
         "auth.Group": "fas fa-users",
         "main.usuario": "fas fa-user",
         "main.cliente": "fas fa-user-tag",
-        # "main.configuracaopercentualcorretor": "fas fa-percentage",
-        # "main.configuracaoprecoregularizacao": "fas fa-money-bill",
-        # "main.configuracaovalortecnico": "fas fa-dollar-sign",
-        # "main.imovel": "fas fa-building",
         "main.notafiscal": "fas fa-receipt",
         "main.transportador": "fas fa-truck",
     },

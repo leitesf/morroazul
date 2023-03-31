@@ -1,8 +1,8 @@
 from django.utils.safestring import mark_safe
 from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 
-#
-def gerar_menu(usuario):
+
+def gerar_menu(usuario, ativo=None):
     side_menu_list = [
         {
             'name': 'Morro Azul',
@@ -13,16 +13,29 @@ def gerar_menu(usuario):
         }
     ]
     if usuario.has_perm('main.view_cliente'):
+        is_active = True if ativo=='cliente' else False
         side_menu_list[0]['models'].append(
-            {'name': 'Clientes', 'object_name': 'Cliente', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/cliente/', 'add_url': '/admin/main/cliente/add/', 'view_only': False, 'url': '/admin/main/cliente/', 'model_str': 'main.cliente', 'icon': 'fas fa-user-tag'}
+            {'name': 'Clientes', 'object_name': 'Cliente', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/cliente/', 'add_url': '/admin/main/cliente/add/', 'view_only': False, 'url': '/admin/main/cliente/', 'model_str': 'main.cliente', 'icon': 'fas fa-user-tag', 'is_active': is_active}
         )
     if usuario.has_perm('main.view_notafiscal'):
+        is_active = True if ativo=='nota_fiscal' else False
         side_menu_list[0]['models'].append(
-            {'name': 'Notas Fiscais', 'object_name': 'Nota Fiscal', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/notafiscal/', 'add_url': '/admin/main/notafiscal/add/', 'view_only': False, 'url': '/admin/main/notafiscal/', 'model_str': 'main.notafiscal', 'icon': 'fas fa-receipt'}
+            {'name': 'Notas Fiscais', 'object_name': 'Nota Fiscal', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/notafiscal/', 'add_url': '/admin/main/notafiscal/add/', 'view_only': False, 'url': '/admin/main/notafiscal/', 'model_str': 'main.notafiscal', 'icon': 'fas fa-receipt', 'is_active': is_active}
         )
     if usuario.has_perm('main.view_transportador'):
+        is_active = True if ativo=='transportador' else False
         side_menu_list[0]['models'].append(
-            {'name': 'Transportadores', 'object_name': 'Transportador', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/transportador/', 'add_url': '/admin/main/transportador/add/', 'view_only': False, 'url': '/admin/main/transportador/', 'model_str': 'main.transportador', 'icon': 'fas fa-truck'}
+            {'name': 'Transportadores', 'object_name': 'Transportador', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/transportador/', 'add_url': '/admin/main/transportador/add/', 'view_only': False, 'url': '/admin/main/transportador/', 'model_str': 'main.transportador', 'icon': 'fas fa-truck', 'is_active': is_active}
+        )
+    if usuario.has_perm('main.nfs_cliente'):
+        is_active = True if ativo=='minhas_notas_cliente' else False
+        side_menu_list[0]['models'].append(
+            {'name': 'Minhas NFs como Cliente', 'object_name': 'Minhas NFs como Cliente', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False, 'url': '/minhas_nfs_cliente/', 'model_str': 'main.cliente', 'icon': 'fas fa-receipt', 'is_active': is_active}
+        )
+    if usuario.has_perm('main.nfs_transportador'):
+        is_active = True if ativo=='minhas_notas_transportador' else False
+        side_menu_list[0]['models'].append(
+            {'name': 'Minhas NFs como Transportador', 'object_name': 'Minhas NFs como Transportador', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False, 'url': '/minhas_nfs_transportador/', 'model_str': 'main.cliente', 'icon': 'fas fa-receipt', 'is_active': is_active}
         )
     # if usuario.has_perm('main.view_configuracaopercentualcorretor'):
     #     side_menu_list[0]['models'].append(

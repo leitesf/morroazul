@@ -1,0 +1,423 @@
+[
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "usuario"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "notafiscal"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "configuracaopontuacao"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "cliente"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "fields": {
+        "app_label": "main",
+        "model": "transportador"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Pode visualizar as próprias notas fiscais como cliente",
+        "content_type": [
+            "main",
+            "cliente"
+        ],
+        "codename": "nfs_cliente"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Usuário",
+        "content_type": [
+            "main",
+            "usuario"
+        ],
+        "codename": "view_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Usuário",
+        "content_type": [
+            "main",
+            "usuario"
+        ],
+        "codename": "delete_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Usuário",
+        "content_type": [
+            "main",
+            "usuario"
+        ],
+        "codename": "change_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Usuário",
+        "content_type": [
+            "main",
+            "usuario"
+        ],
+        "codename": "add_usuario"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Transportador",
+        "content_type": [
+            "main",
+            "transportador"
+        ],
+        "codename": "view_transportador"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Transportador",
+        "content_type": [
+            "main",
+            "transportador"
+        ],
+        "codename": "delete_transportador"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Transportador",
+        "content_type": [
+            "main",
+            "transportador"
+        ],
+        "codename": "change_transportador"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Transportador",
+        "content_type": [
+            "main",
+            "transportador"
+        ],
+        "codename": "add_transportador"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Nota Fiscal",
+        "content_type": [
+            "main",
+            "notafiscal"
+        ],
+        "codename": "view_notafiscal"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Nota Fiscal",
+        "content_type": [
+            "main",
+            "notafiscal"
+        ],
+        "codename": "delete_notafiscal"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Nota Fiscal",
+        "content_type": [
+            "main",
+            "notafiscal"
+        ],
+        "codename": "change_notafiscal"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Nota Fiscal",
+        "content_type": [
+            "main",
+            "notafiscal"
+        ],
+        "codename": "add_notafiscal"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view Configuração de Pontos",
+        "content_type": [
+            "main",
+            "configuracaopontuacao"
+        ],
+        "codename": "view_configuracaopontuacao"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete Configuração de Pontos",
+        "content_type": [
+            "main",
+            "configuracaopontuacao"
+        ],
+        "codename": "delete_configuracaopontuacao"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change Configuração de Pontos",
+        "content_type": [
+            "main",
+            "configuracaopontuacao"
+        ],
+        "codename": "change_configuracaopontuacao"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add Configuração de Pontos",
+        "content_type": [
+            "main",
+            "configuracaopontuacao"
+        ],
+        "codename": "add_configuracaopontuacao"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can view cliente",
+        "content_type": [
+            "main",
+            "cliente"
+        ],
+        "codename": "view_cliente"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can delete cliente",
+        "content_type": [
+            "main",
+            "cliente"
+        ],
+        "codename": "delete_cliente"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can change cliente",
+        "content_type": [
+            "main",
+            "cliente"
+        ],
+        "codename": "change_cliente"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Can add cliente",
+        "content_type": [
+            "main",
+            "cliente"
+        ],
+        "codename": "add_cliente"
+    }
+},
+{
+    "model": "auth.permission",
+    "fields": {
+        "name": "Pode visualizar as próprias notas fiscais como transportador",
+        "content_type": [
+            "main",
+            "transportador"
+        ],
+        "codename": "nfs_transportador"
+    }
+},
+{
+    "model": "auth.group",
+    "fields": {
+        "name": "Cliente",
+        "permissions": [
+            [
+                "nfs_cliente",
+                "main",
+                "cliente"
+            ],
+            [
+                "view_usuario",
+                "main",
+                "usuario"
+            ]
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "fields": {
+        "name": "Administrador",
+        "permissions": [
+            [
+                "add_cliente",
+                "main",
+                "cliente"
+            ],
+            [
+                "change_cliente",
+                "main",
+                "cliente"
+            ],
+            [
+                "delete_cliente",
+                "main",
+                "cliente"
+            ],
+            [
+                "view_cliente",
+                "main",
+                "cliente"
+            ],
+            [
+                "add_configuracaopontuacao",
+                "main",
+                "configuracaopontuacao"
+            ],
+            [
+                "change_configuracaopontuacao",
+                "main",
+                "configuracaopontuacao"
+            ],
+            [
+                "delete_configuracaopontuacao",
+                "main",
+                "configuracaopontuacao"
+            ],
+            [
+                "view_configuracaopontuacao",
+                "main",
+                "configuracaopontuacao"
+            ],
+            [
+                "add_notafiscal",
+                "main",
+                "notafiscal"
+            ],
+            [
+                "change_notafiscal",
+                "main",
+                "notafiscal"
+            ],
+            [
+                "delete_notafiscal",
+                "main",
+                "notafiscal"
+            ],
+            [
+                "view_notafiscal",
+                "main",
+                "notafiscal"
+            ],
+            [
+                "add_transportador",
+                "main",
+                "transportador"
+            ],
+            [
+                "change_transportador",
+                "main",
+                "transportador"
+            ],
+            [
+                "delete_transportador",
+                "main",
+                "transportador"
+            ],
+            [
+                "view_transportador",
+                "main",
+                "transportador"
+            ],
+            [
+                "add_usuario",
+                "main",
+                "usuario"
+            ],
+            [
+                "change_usuario",
+                "main",
+                "usuario"
+            ],
+            [
+                "delete_usuario",
+                "main",
+                "usuario"
+            ],
+            [
+                "view_usuario",
+                "main",
+                "usuario"
+            ]
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "fields": {
+        "name": "Transportador",
+        "permissions": [
+            [
+                "nfs_transportador",
+                "main",
+                "transportador"
+            ],
+            [
+                "change_usuario",
+                "main",
+                "usuario"
+            ]
+        ]
+    }
+}
+]
