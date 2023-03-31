@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 from django.db.models import Sum
 from django.db.models.signals import pre_save
@@ -60,12 +60,13 @@ class Cliente(Pessoa):
 
 @receiver(pre_save, sender=Cliente)
 def criar_usuario(sender, instance, **kwargs):
+    grupo_usuario = Group.objects.get(name='Cliente')
     if not instance.usuario:
         if not Usuario.objects.filter(username=instance.get_doc_oficial()):
-            usuario = Usuario.criar_usuario(instance)
+            usuario = Usuario.criar_usuario(instance, grupo_usuario)
         else:
             usuario = Usuario.objects.get(username=instance.get_doc_oficial())
-            usuario.atualizar_usuario(instance)
+            usuario.atualizar_usuario(instance, grupo_usuario)
         instance.usuario = usuario
     else:
         instance.usuario.atualizar_usuario(instance)
@@ -104,12 +105,13 @@ class Transportador(Pessoa):
 
 @receiver(pre_save, sender=Transportador)
 def criar_usuario(sender, instance, **kwargs):
+    grupo_usuario = Group.objects.get(name='Transportador')
     if not instance.usuario:
         if not Usuario.objects.filter(username=instance.get_doc_oficial()):
-            usuario = Usuario.criar_usuario(instance)
+            usuario = Usuario.criar_usuario(instance, grupo_usuario)
         else:
             usuario = Usuario.objects.get(username=instance.get_doc_oficial())
-            usuario.atualizar_usuario(instance)
+            usuario.atualizar_usuario(instance, grupo_usuario)
         instance.usuario = usuario
     else:
         instance.usuario.atualizar_usuario(instance)
@@ -165,7 +167,7 @@ class Usuario(AbstractUser):
         return '/admin/main/usuario/{}/change/'.format(self.id)
 
     @classmethod
-    def criar_usuario(cls, pessoa):
+    def criar_usuario(cls, pessoa, grupo_usuario):
         usuario = cls.objects.create(
             username=pessoa.get_doc_oficial(),
             first_name=pessoa.nome.split(' ')[:1][0],
@@ -175,15 +177,19 @@ class Usuario(AbstractUser):
             data_nascimento=pessoa.data_nascimento
         )
         usuario.set_password(pessoa.get_doc_oficial())
+        if grupo_usuario not in usuario.groups.all():
+            usuario.groups.add(grupo_usuario)
         usuario.save()
         return usuario
 
-    def atualizar_usuario(self, pessoa):
+    def atualizar_usuario(self, pessoa, grupo_usuario):
         self.first_name = pessoa.nome.split(' ')[:1][0]
         self.last_name = ' '.join(pessoa.nome.split(' ')[1:])
         self.email = pessoa.email
         self.contato = pessoa.telefone
         self.data_nascimento = pessoa.data_nascimento
+        if grupo_usuario not in self.groups.all():
+            self.groups.add(grupo_usuario)
         self.save()
 
 
