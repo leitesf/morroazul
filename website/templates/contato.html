@@ -1,0 +1,72 @@
+{% load static %}
+
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Contato</h2>
+      </div>
+
+      <div class="row" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-6">
+          <div class="info-box mb-4">
+            <i class="bx bx-map"></i>
+            <h3>Endereço</h3>
+            <p>RJ 158 - KM 10, São Fidélis - RJ 28400-000</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="info-box  mb-4">
+            <i class="bx bx-envelope"></i>
+            <h3>Email</h3>
+            <p>morroazul@grupobarroco.com.br</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="info-box  mb-4">
+            <i class="bx bx-phone-call"></i>
+            <h3>Telefone</h3>
+            <p>+55 (22) 2758-0101</p>
+            <p>+55 (22) 2758-0090</p>
+            <p>+55 (22) 99825-8788</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="col-lg-6 ">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6237.095755794481!2d-41.65661314215697!3d-21.640531441237272!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xbdb5f004c93905%3A0x4ab24213cfa77617!2sPedreira%20Morro%20Azul!5e0!3m2!1spt-BR!2sbr!4v1652397854547!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="col-lg-6">
+          <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col form-group">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Seu nome" required>
+              </div>
+              <div class="col form-group">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Seu melhor email" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Assunto" required>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" name="message" rows="5" placeholder="Mensagem..." required></textarea>
+            </div>
+            <div class="my-3">
+              <div class="loading">Carregando</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Sua mensagem foi enviada. Obrigado!</div>
+            </div>
+            <div class="text-center"><button type="submit">Enviar Mensagem</button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
