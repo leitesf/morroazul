@@ -5,7 +5,7 @@ from django_middleware_global_request import get_request
 from solo.admin import SingletonModelAdmin
 
 from main.forms import ClienteForm, UsuarioForm, TransportadorForm, NotaFiscalForm
-from main.models import Cliente, Usuario, NotaFiscal, Transportador, ConfiguracaoPontuacao
+from main.models import Cliente, Usuario, NotaFiscal, Transportador, ConfiguracaoPontuacao, Beneficio
 from main.utils import links_no_admin
 
 
@@ -84,6 +84,28 @@ class NotaFiscalAdmin(admin.ModelAdmin):
         return actions
 
 
+class BeneficioAdmin(admin.ModelAdmin):
+    list_display = ('get_links', 'nome', 'estoque')
+    search_fields = ('nome', 'descricao')
+    ordering = ('nome',)
+    list_display_links = None
+
+    def get_links(self, obj):
+        user = get_request().user
+        pode_visualizar = user.has_perm('main.view_notafiscal')
+        pode_editar = user.has_perm('main.change_notafiscal')
+        return links_no_admin(obj, pode_visualizar, pode_editar)
+
+    get_links.short_description = '#'
+    get_links.allow_tags = True
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
+
 class UsuarioAdmin(admin.ModelAdmin):
     list_display = ('get_links', 'get_nome', 'username', 'email', 'contato', 'get_grupos', 'is_superuser')
     search_fields = ('first_name', 'last_name', 'email')
@@ -121,4 +143,5 @@ admin.site.register(Cliente, ClienteAdmin)
 admin.site.register(Usuario, UsuarioAdmin)
 admin.site.register(NotaFiscal, NotaFiscalAdmin)
 admin.site.register(Transportador, TransportadorAdmin)
+admin.site.register(Beneficio, BeneficioAdmin)
 admin.site.register(ConfiguracaoPontuacao, SingletonModelAdmin)

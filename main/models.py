@@ -152,6 +152,30 @@ class NotaFiscal(models.Model):
         return int(self.km/ConfiguracaoPontuacao.objects.get().kms_por_ponto)
 
 
+class Beneficio(models.Model):
+    nome = models.CharField("Nome", max_length=50)
+    descricao = models.CharField("Descrição", max_length=100)
+    estoque = models.IntegerField("Estoque")
+    foto = models.ImageField("Foto")
+
+    class Meta:
+        verbose_name = 'Benefício'
+        verbose_name_plural = 'Benefícios'
+        ordering = ["nome"]
+
+    def __str__(self):
+        return self.nome
+
+    def get_absolute_url(self):
+        return '/beneficio/{}'.format(self.id)
+
+    def get_edit_url(self):
+        return '/admin/main/beneficio/{}/change/'.format(self.id)
+
+    def get_delete_url(self):
+        return '/admin/main/beneficio/{}/delete/'.format(self.id)
+
+
 class Usuario(AbstractUser):
     contato = models.CharField("Contato", max_length=100)
     data_nascimento = models.DateField("Data de Nascimento", null=True, blank=True)
