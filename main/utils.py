@@ -12,30 +12,56 @@ def gerar_menu(usuario, ativo=None):
             'models': []
         }
     ]
-    if usuario.has_perm('main.view_cliente'):
-        is_active = True if ativo=='cliente' else False
+    if usuario.has_perm('main.view_beneficio'):
+        is_active = True if ativo == 'beneficio' else False
         side_menu_list[0]['models'].append(
-            {'name': 'Clientes', 'object_name': 'Cliente', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/cliente/', 'add_url': '/admin/main/cliente/add/', 'view_only': False, 'url': '/admin/main/cliente/', 'model_str': 'main.cliente', 'icon': 'fas fa-user-tag', 'is_active': is_active}
+            {'name': 'Benefícios', 'object_name': 'Benefício',
+             'perms': {'add': True, 'change': True, 'delete': True, 'view': True},
+             'admin_url': '/admin/main/beneficio/', 'add_url': '/admin/main/beneficio/add/', 'view_only': False,
+             'url': '/admin/main/beneficio/', 'model_str': 'main.beneficio', 'icon': 'fas fa-user-tag',
+             'is_active': is_active}
+        )
+    if usuario.has_perm('main.view_cliente'):
+        is_active = True if ativo == 'cliente' else False
+        side_menu_list[0]['models'].append(
+            {'name': 'Clientes', 'object_name': 'Cliente',
+             'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/cliente/',
+             'add_url': '/admin/main/cliente/add/', 'view_only': False, 'url': '/admin/main/cliente/',
+             'model_str': 'main.cliente', 'icon': 'fas fa-user-tag', 'is_active': is_active}
         )
     if usuario.has_perm('main.view_notafiscal'):
-        is_active = True if ativo=='nota_fiscal' else False
+        is_active = True if ativo == 'nota_fiscal' else False
         side_menu_list[0]['models'].append(
-            {'name': 'Notas Fiscais', 'object_name': 'Nota Fiscal', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/notafiscal/', 'add_url': '/admin/main/notafiscal/add/', 'view_only': False, 'url': '/admin/main/notafiscal/', 'model_str': 'main.notafiscal', 'icon': 'fas fa-receipt', 'is_active': is_active}
+            {'name': 'Notas Fiscais', 'object_name': 'Nota Fiscal',
+             'perms': {'add': True, 'change': True, 'delete': True, 'view': True},
+             'admin_url': '/admin/main/notafiscal/', 'add_url': '/admin/main/notafiscal/add/', 'view_only': False,
+             'url': '/admin/main/notafiscal/', 'model_str': 'main.notafiscal', 'icon': 'fas fa-receipt',
+             'is_active': is_active}
         )
     if usuario.has_perm('main.view_transportador'):
-        is_active = True if ativo=='transportador' else False
+        is_active = True if ativo == 'transportador' else False
         side_menu_list[0]['models'].append(
-            {'name': 'Transportadores', 'object_name': 'Transportador', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'admin_url': '/admin/main/transportador/', 'add_url': '/admin/main/transportador/add/', 'view_only': False, 'url': '/admin/main/transportador/', 'model_str': 'main.transportador', 'icon': 'fas fa-truck', 'is_active': is_active}
+            {'name': 'Transportadores', 'object_name': 'Transportador',
+             'perms': {'add': True, 'change': True, 'delete': True, 'view': True},
+             'admin_url': '/admin/main/transportador/', 'add_url': '/admin/main/transportador/add/', 'view_only': False,
+             'url': '/admin/main/transportador/', 'model_str': 'main.transportador', 'icon': 'fas fa-truck',
+             'is_active': is_active}
         )
     if usuario.has_perm('main.nfs_cliente'):
-        is_active = True if ativo=='minhas_notas_cliente' else False
+        is_active = True if ativo == 'minhas_notas_cliente' else False
         side_menu_list[0]['models'].append(
-            {'name': 'Minhas NFs como Cliente', 'object_name': 'Minhas NFs como Cliente', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False, 'url': '/minhas_nfs_cliente/', 'model_str': 'main.cliente', 'icon': 'fas fa-receipt', 'is_active': is_active}
+            {'name': 'Minhas NFs como Cliente', 'object_name': 'Minhas NFs como Cliente',
+             'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False,
+             'url': '/minhas_nfs_cliente/', 'model_str': 'main.cliente', 'icon': 'fas fa-receipt',
+             'is_active': is_active}
         )
     if usuario.has_perm('main.nfs_transportador'):
-        is_active = True if ativo=='minhas_notas_transportador' else False
+        is_active = True if ativo == 'minhas_notas_transportador' else False
         side_menu_list[0]['models'].append(
-            {'name': 'Minhas NFs como Transportador', 'object_name': 'Minhas NFs como Transportador', 'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False, 'url': '/minhas_nfs_transportador/', 'model_str': 'main.cliente', 'icon': 'fas fa-receipt', 'is_active': is_active}
+            {'name': 'Minhas NFs como Transportador', 'object_name': 'Minhas NFs como Transportador',
+             'perms': {'add': True, 'change': True, 'delete': True, 'view': True}, 'view_only': False,
+             'url': '/minhas_nfs_transportador/', 'model_str': 'main.cliente', 'icon': 'fas fa-receipt',
+             'is_active': is_active}
         )
     # if usuario.has_perm('main.view_configuracaopercentualcorretor'):
     #     side_menu_list[0]['models'].append(
@@ -104,9 +130,11 @@ def gerar_menu(usuario, ativo=None):
 
 
 def links_no_admin(objeto, pode_visualizar, pode_editar):
-    links=""
+    links = ""
     if pode_visualizar:
-        links = links + "<a class='text-reset text-decoration-none' href='{}' title='Visualizar'>{}</a>".format(objeto.get_absolute_url(), bs_icon('info-square'))
+        links = links + "<a class='text-reset text-decoration-none' href='{}' title='Visualizar'>{}</a>".format(
+            objeto.get_absolute_url(), bs_icon('info-square'))
     if pode_editar:
-        links = links + "<a class='text-reset text-decoration-none' href='{}' title='Editar'>{}</a>".format(objeto.get_edit_url(), bs_icon('pencil-square'))
+        links = links + "<a class='text-reset text-decoration-none' href='{}' title='Editar'>{}</a>".format(
+            objeto.get_edit_url(), bs_icon('pencil-square'))
     return mark_safe(links)

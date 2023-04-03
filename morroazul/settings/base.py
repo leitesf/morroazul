@@ -235,6 +235,7 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.Group": "fas fa-users",
         "main.usuario": "fas fa-user",
+        "main.beneficio": "fas fa-gifts",
         "main.cliente": "fas fa-user-tag",
         "main.notafiscal": "fas fa-receipt",
         "main.transportador": "fas fa-truck",
