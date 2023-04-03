@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+{% load bootstrap5 %}
+{% block content_title %}{{ beneficio.nome }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p><strong>Descricao:</strong> {{ beneficio.descricao }}</p>
+                {% if pode_ver_estoque %}
+                    <p><strong>Estoque:</strong> {{ beneficio.estoque }}</p>
+                {% endif %}
+            </div>
+            <div class="col">
+                <img src="/uploaded_files/{{ beneficio.foto }}">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

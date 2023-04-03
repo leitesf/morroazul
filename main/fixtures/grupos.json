@@ -290,6 +290,11 @@
                 "view_usuario",
                 "main",
                 "usuario"
+            ],
+            [
+                "view_beneficio",
+                "main",
+                "beneficio"
             ]
         ]
     }
@@ -380,6 +385,26 @@
                 "transportador"
             ],
             [
+                "add_beneficio",
+                "main",
+                "beneficio"
+            ],
+            [
+                "change_beneficio",
+                "main",
+                "beneficio"
+            ],
+            [
+                "delete_beneficio",
+                "main",
+                "beneficio"
+            ],
+            [
+                "view_beneficio",
+                "main",
+                "beneficio"
+            ],
+            [
                 "add_usuario",
                 "main",
                 "usuario"
@@ -416,6 +441,11 @@
                 "change_usuario",
                 "main",
                 "usuario"
+            ],
+            [
+                "view_beneficio",
+                "main",
+                "beneficio"
             ]
         ]
     }

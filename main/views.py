@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from main.forms import PasswordForm
-from main.models import Cliente, Usuario, NotaFiscal, Transportador
+from main.models import Cliente, Usuario, NotaFiscal, Transportador, Beneficio
 from main.utils import gerar_menu
 
 
@@ -38,6 +38,14 @@ def show_nota_fiscal(request, nota_fiscal_id):
     nota_fiscal = get_object_or_404(NotaFiscal, id=nota_fiscal_id)
     side_menu_list = gerar_menu(request.user, ativo='nota_fiscal')
     return render(request, 'nota_fiscal.html', locals())
+
+
+@login_required
+def show_beneficio(request, beneficio_id):
+    beneficio = get_object_or_404(Beneficio, id=beneficio_id)
+    side_menu_list = gerar_menu(request.user, ativo='beneficio')
+    pode_ver_estoque = request.user.has_perm('main.add_beneficio')
+    return render(request, 'beneficio.html', locals())
 
 
 @permission_required('main.add_usuario')
