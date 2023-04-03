@@ -198,7 +198,8 @@ class Usuario(AbstractUser):
             last_name=' '.join(pessoa.nome.split(' ')[1:]),
             email=pessoa.email,
             contato=pessoa.telefone,
-            data_nascimento=pessoa.data_nascimento
+            data_nascimento=pessoa.data_nascimento,
+            is_staff=True
         )
         usuario.set_password(pessoa.get_doc_oficial())
         if grupo_usuario not in usuario.groups.all():

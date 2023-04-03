@@ -1,0 +1,66 @@
+{% load static %}
+
+<section id="portfolio" class="portfolio">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Nossos Produtos</h2>
+        <p>A <strong>Pedreira Morro Azul</strong> conta com técnologia de ponta para entregar o que há de melhor em produtos.</p>
+        <p>Confira abaixo nossas linhas de produtos.</p>
+      </div>
+
+      <div class="row" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-12 d-flex justify-content-center">
+          <ul id="portfolio-flters">
+            <li data-filter=".filter-app">Minérios</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <img src="{% static 'img/produtos/brita0.jpeg' %}" class="img-fluid" alt="">
+          <div class="portfolio-info">
+            <h4>Brita 0</h4>
+            <p>Brita 0 - Decsricao</p>
+            <a href="{% static 'img/produtos/brita0.jpeg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
+        </div>
+
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <img src="{% static 'img/produtos/brita1.jpeg' %}" class="img-fluid" alt="">
+          <div class="portfolio-info">
+            <h4>Brita 1</h4>
+            <p>Brita 1 - Decsricao</p>
+            <a href="{% static 'img/produtos/brita1.jpeg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <img src="{% static 'img/produtos/po-de-pedra.jpeg' %}" class="img-fluid" alt="">
+          <div class="portfolio-info">
+            <h4>Pó de pedra</h4>
+            <p>Pó de pedra - Descricao</p>
+            <a href="{% static 'img/produtos/po-de-pedra.jpeg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
+            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <img src="{% static 'img/produtos/rachao.jpeg' %}" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Rachão</h4>
+              <p>Racão - Descricao</p>
+              <a href="{% static 'img/produtos/rachao.jpeg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+      </div>
+
+    </div>
+  </section>
