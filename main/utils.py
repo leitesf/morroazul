@@ -20,7 +20,7 @@ def gerar_menu(usuario, ativo=None):
             {'name': 'Benefícios', 'object_name': 'Benefício',
              'perms': {'add': True, 'change': True, 'delete': True, 'view': True},
              'admin_url': '/admin/main/beneficio/', 'add_url': '/admin/main/beneficio/add/', 'view_only': False,
-             'url': '/admin/main/beneficio/', 'model_str': 'main.beneficio', 'icon': 'fas fa-user-tag',
+             'url': '/admin/main/beneficio/', 'model_str': 'main.beneficio', 'icon': 'fas fa-gifts',
              'is_active': is_active}
         )
     if usuario.has_perm('main.view_cliente'):
@@ -38,6 +38,15 @@ def gerar_menu(usuario, ativo=None):
              'perms': {'add': True, 'change': True, 'delete': True, 'view': True},
              'admin_url': '/admin/main/notafiscal/', 'add_url': '/admin/main/notafiscal/add/', 'view_only': False,
              'url': '/admin/main/notafiscal/', 'model_str': 'main.notafiscal', 'icon': 'fas fa-receipt',
+             'is_active': is_active}
+        )
+    if usuario.has_perm('main.view_pedido'):
+        is_active = True if ativo == 'pedido' else False
+        side_menu_list[0]['models'].append(
+            {'name': 'Pedidos', 'object_name': 'Pedido',
+             'perms': {'add': True, 'change': True, 'delete': True, 'view': True},
+             'admin_url': '/admin/main/pedido/', 'add_url': '/admin/main/pedido/add/', 'view_only': False,
+             'url': '/admin/main/pedido/', 'model_str': 'main.pedido', 'icon': 'fas fa-shopping-cart',
              'is_active': is_active}
         )
     if usuario.has_perm('main.view_transportador'):

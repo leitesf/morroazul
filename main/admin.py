@@ -5,7 +5,7 @@ from django_middleware_global_request import get_request
 from solo.admin import SingletonModelAdmin
 
 from main.forms import ClienteForm, UsuarioForm, TransportadorForm, NotaFiscalForm
-from main.models import Cliente, Usuario, NotaFiscal, Transportador, ConfiguracaoPontuacao, Beneficio
+from main.models import Cliente, Usuario, NotaFiscal, Transportador, ConfiguracaoPontuacao, Beneficio, Pedido
 from main.utils import links_no_admin
 
 
@@ -113,6 +113,35 @@ class BeneficioAdmin(admin.ModelAdmin):
         return actions
 
 
+class PedidoAdmin(admin.ModelAdmin):
+    list_display = ('get_links', 'usuario', 'beneficio', 'pontos', 'data', 'get_status')
+    search_fields = ('usuario', 'beneficio')
+    ordering = ('status',)
+    list_filter = ('status', 'usuario', 'beneficio',)
+    list_display_links = None
+
+    def get_links(self, obj):
+        user = get_request().user
+        pode_visualizar = user.has_perm('main.view_pedido')
+        return links_no_admin(obj, pode_visualizar, None)
+
+    get_links.short_description = '#'
+    get_links.allow_tags = True
+
+    def get_status(self, obj):
+        classe, status = obj.get_status_formatado()
+        return mark_safe("<span class='badge bg-{}'>{}</span>".format(classe, status))
+
+    get_status.short_description = 'Situação'
+    get_status.allow_tags = True
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
+
 class UsuarioAdmin(admin.ModelAdmin):
     list_display = ('get_links', 'get_nome', 'username', 'email', 'contato', 'get_grupos', 'is_superuser')
     search_fields = ('first_name', 'last_name', 'email')
@@ -152,3 +181,4 @@ admin.site.register(NotaFiscal, NotaFiscalAdmin)
 admin.site.register(Transportador, TransportadorAdmin)
 admin.site.register(Beneficio, BeneficioAdmin)
 admin.site.register(ConfiguracaoPontuacao, SingletonModelAdmin)
+admin.site.register(Pedido, PedidoAdmin)

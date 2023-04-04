@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from main.forms import PasswordForm
-from main.models import Cliente, Usuario, NotaFiscal, Transportador, Beneficio, Pedido
+from main.models import Cliente, Usuario, NotaFiscal, Transportador, Beneficio, Pedido, StatusPedido
 from main.utils import gerar_menu
 
 
@@ -49,6 +49,43 @@ def show_beneficio(request, beneficio_id):
     return render(request, 'beneficio.html', locals())
 
 
+@login_required
+def show_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+    side_menu_list = gerar_menu(request.user, ativo='pedido')
+    pode_ver_estoque = request.user.has_perm('main.add_pedido')
+    pode_aprovar = request.user.has_perm('main.aprovar_pedido') and pedido.status == StatusPedido.PENDENTE
+    pode_entregar = request.user.has_perm('main.entregar_pedido') and pedido.status == StatusPedido.APROVADO
+    return render(request, 'pedido.html', locals())
+
+
+@permission_required('main.aprovar_pedido')
+def aprovar_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+    pedido.status = StatusPedido.APROVADO
+    pedido.save()
+    messages.success(request, 'Pedido aprovado com sucesso')
+    return redirect('/admin/main/pedido/')
+
+
+@permission_required('main.aprovar_pedido')
+def reprovar_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+    pedido.status = StatusPedido.CANCELADO
+    pedido.save()
+    messages.success(request, 'Pedido reprovado com sucesso')
+    return redirect('/admin/main/pedido/')
+
+
+@permission_required('main.entregar_pedido')
+def entregar_pedido(request, pedido_id):
+    pedido = get_object_or_404(Pedido, id=pedido_id)
+    pedido.status = StatusPedido.ENTREGUE
+    pedido.save()
+    messages.success(request, 'Pedido entregue com sucesso')
+    return redirect('/admin/main/pedido/')
+
+
 @permission_required('main.fazer_pedido')
 def fazer_pedido(request, beneficio_id):
     beneficio = get_object_or_404(Beneficio, id=beneficio_id)
@@ -66,10 +103,10 @@ def fazer_pedido(request, beneficio_id):
         beneficio.estoque -= 1
         beneficio.save()
         messages.success(request, 'Pedido realizado com sucesso')
-        return redirect(beneficio.get_absolute_url())
+        return redirect(pedido.get_absolute_url())
     except:
         messages.error(request, 'Não foi possível realizar o pedido')
-        return redirect(beneficio.get_absolute_url())
+        return redirect(pedido.get_absolute_url())
 
 
 @permission_required('main.add_usuario')

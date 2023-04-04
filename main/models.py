@@ -263,7 +263,7 @@ class StatusPedido:
     ENTREGUE = '3'
     CANCELADO = '99'
 
-    TIPOS = ((PENDENTE, 'Orçamento'), (APROVADO, 'Aprovado'), (CANCELADO, 'Cancelado'), (ENTREGUE, 'Entregue'))
+    TIPOS = ((PENDENTE, 'Pendente'), (APROVADO, 'Aprovado'), (CANCELADO, 'Cancelado'), (ENTREGUE, 'Entregue'))
 
     @classmethod
     def get_status(cls, status):
@@ -287,6 +287,14 @@ class Pedido(models.Model):
             (
                 "fazer_pedido",
                 "Pode criar um pedido"
+            ),
+            (
+                "aprovar_pedido",
+                "Pode aprovar um pedido"
+            ),
+            (
+                "entregar_pedido",
+                "Pode entregar um pedido"
             )
         ]
 

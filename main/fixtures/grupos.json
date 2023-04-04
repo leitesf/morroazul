@@ -438,6 +438,16 @@
                 "view_pedido",
                 "main",
                 "pedido"
+            ],
+            [
+                "aprovar_pedido",
+                "main",
+                "pedido"
+            ],
+            [
+                "entregar_pedido",
+                "main",
+                "pedido"
             ]
         ]
     }

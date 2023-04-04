@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+{% load bootstrap5 %}
+{% block content_title %}Pedido #{{ pedido.id }}{% endblock %}
+{% block page_actions %}
+    {% if pode_aprovar %}
+        <a href="{{ pedido.get_absolute_url }}/aprovar/" class="btn btn-success float-right" onclick="return confirm('Você tem certeza?')">
+            <i class="fa fa-check"></i> &nbsp; Aprovar
+        </a>&nbsp;
+        <a href="{{ pedido.get_absolute_url }}/reprovar/" class="btn btn-danger float-right" onclick="return confirm('Você tem certeza?')">
+            <i class="fa fa-times"></i> &nbsp; Reprovar
+        </a>
+    {% endif %}
+    {% if pode_entregar %}
+        <a href="{{ pedido.get_absolute_url }}/entregar/" class="btn btn-success float-right" onclick="return confirm('Você tem certeza?')">
+            <i class="fa fa-check"></i> &nbsp; Registrar Entrega
+        </a>
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p><strong>Cliente/Transportador:</strong> {{ pedido.usuario }}</p>
+            </div>
+            <div class="col">
+                <p><strong>Status:</strong> <span class="badge bg-{{ pedido.get_status_formatado.0 }}">{{ pedido.get_status_formatado.1 }}</span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><strong>Benefício:</strong> {{ pedido.beneficio }}</p>
+            </div>
+            <div class="col">
+                <p><strong>Pontos utilizados:</strong> {{ pedido.pontos }}</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -238,6 +238,7 @@ JAZZMIN_SETTINGS = {
         "main.beneficio": "fas fa-gifts",
         "main.cliente": "fas fa-user-tag",
         "main.notafiscal": "fas fa-receipt",
+        "main.pedido": "fas fa-shopping-cart",
         "main.transportador": "fas fa-truck",
     },
     # Icons that are used when one is not manually specified
