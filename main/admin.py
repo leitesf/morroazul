@@ -117,8 +117,15 @@ class PedidoAdmin(admin.ModelAdmin):
     list_display = ('get_links', 'usuario', 'beneficio', 'pontos', 'data', 'get_status')
     search_fields = ('usuario', 'beneficio')
     ordering = ('status',)
-    list_filter = ('status', 'usuario', 'beneficio',)
+    list_filter = ('status', 'beneficio',)
     list_display_links = None
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser or request.user.has_perm('main.aprovar_pedido') or request.user.has_perm('main.entregar_pedido'):
+            return qs
+        else:
+            return qs.filter(usuario=request.user)
 
     def get_links(self, obj):
         user = get_request().user
