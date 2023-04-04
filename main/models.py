@@ -156,6 +156,7 @@ class Beneficio(models.Model):
     nome = models.CharField("Nome", max_length=50)
     descricao = models.CharField("Descrição", max_length=100)
     estoque = models.IntegerField("Estoque")
+    pontos = models.IntegerField("Valor em pontos")
     foto = models.ImageField("Foto")
 
     class Meta:
@@ -168,6 +169,9 @@ class Beneficio(models.Model):
 
     def get_absolute_url(self):
         return '/beneficio/{}'.format(self.id)
+
+    def get_buy_url(self):
+        return '/beneficio/{}/pedir'.format(self.id)
 
     def get_edit_url(self):
         return '/admin/main/beneficio/{}/change/'.format(self.id)
@@ -217,6 +221,20 @@ class Usuario(AbstractUser):
             self.groups.add(grupo_usuario)
         self.save()
 
+    def pontos_recebidos(self):
+        pontos=0
+        for cliente in self.cliente_set.all():
+            pontos += cliente.get_pontuacao_total()
+        for transportador in self.transportador_set.all():
+            pontos += transportador.get_pontuacao_total()
+        return pontos
+
+    def pontos_gastos(self):
+        return self.pedido_set.aggregate(Sum('pontos'))['pontos__sum'] or 0
+
+    def saldo_atual(self):
+        return self.pontos_recebidos() - self.pontos_gastos()
+
 
 class ConfiguracaoPontuacao(SingletonModel):
     kms_por_ponto = models.IntegerField(
@@ -235,3 +253,49 @@ class ConfiguracaoPontuacao(SingletonModel):
 
     class Meta:
         verbose_name = "Configuração de Pontos"
+
+
+class StatusPedido:
+    PENDENTE = '1'
+    APROVADO = '2'
+    ENTREGUE = '3'
+    CANCELADO = '99'
+
+    TIPOS = ((PENDENTE, 'Orçamento'), (APROVADO, 'Aprovado'), (CANCELADO, 'Cancelado'), (ENTREGUE, 'Entregue'))
+
+    @classmethod
+    def get_status(cls, status):
+        for tipo in cls.TIPOS:
+            if tipo[0]==status:
+                return tipo[1]
+
+
+class Pedido(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    beneficio = models.ForeignKey(Beneficio, on_delete=models.CASCADE)
+    pontos = models.IntegerField("Pontos gastos")
+    data = models.DateField("Data", auto_now_add=True)
+    status = models.CharField("Situação", choices=StatusPedido.TIPOS, max_length=2, default=StatusPedido.PENDENTE)
+
+    class Meta:
+        verbose_name = 'Pedido'
+        verbose_name_plural = 'Pedidos'
+        ordering = ["-data"]
+        permissions = [
+            (
+                "fazer_pedido",
+                "Pode criar um pedido"
+            )
+        ]
+
+    def __str__(self):
+        return '{} - {}'.format(self.usuario, self.beneficio)
+
+    def get_absolute_url(self):
+        return '/pedido/{}'.format(self.id)
+
+    def get_edit_url(self):
+        return '/admin/main/pedido/{}/change/'.format(self.id)
+
+    def get_delete_url(self):
+        return '/admin/main/pedido/{}/delete/'.format(self.id)

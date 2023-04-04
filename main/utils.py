@@ -129,7 +129,7 @@ def gerar_menu(usuario, ativo=None):
     return side_menu_list
 
 
-def links_no_admin(objeto, pode_visualizar, pode_editar):
+def links_no_admin(objeto, pode_visualizar, pode_editar, pode_comprar=None):
     links = ""
     if pode_visualizar:
         links = links + "<a class='text-reset text-decoration-none' href='{}' title='Visualizar'>{}</a>".format(
@@ -137,4 +137,7 @@ def links_no_admin(objeto, pode_visualizar, pode_editar):
     if pode_editar:
         links = links + "<a class='text-reset text-decoration-none' href='{}' title='Editar'>{}</a>".format(
             objeto.get_edit_url(), bs_icon('pencil-square'))
+    if pode_comprar:
+        links = links + "<a class='text-reset text-decoration-none' href='{}' title='Comprar'>{}</a>".format(
+            objeto.get_buy_url(), bs_icon('cart'))
     return mark_safe(links)

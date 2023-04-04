@@ -85,19 +85,26 @@ class NotaFiscalAdmin(admin.ModelAdmin):
 
 
 class BeneficioAdmin(admin.ModelAdmin):
-    list_display = ('get_links', 'nome', 'estoque')
+    list_display = ('get_links', 'nome', 'possui_estoque', 'pontos')
     search_fields = ('nome', 'descricao')
     ordering = ('nome',)
     list_display_links = None
 
     def get_links(self, obj):
         user = get_request().user
-        pode_visualizar = user.has_perm('main.view_notafiscal')
-        pode_editar = user.has_perm('main.change_notafiscal')
-        return links_no_admin(obj, pode_visualizar, pode_editar)
+        pode_visualizar = user.has_perm('main.view_beneficio')
+        pode_editar = user.has_perm('main.change_beneficio')
+        pode_comprar = user.has_perm('main.fazer_pedido') and obj.estoque>0
+        return links_no_admin(obj, pode_visualizar, pode_editar, pode_comprar)
 
     get_links.short_description = '#'
     get_links.allow_tags = True
+
+    def possui_estoque(self, obj):
+        return "Sim" if obj.estoque > 0 else "Não"
+
+    possui_estoque.short_description = 'Disponível?'
+    possui_estoque.allow_tags = True
 
     def get_actions(self, request):
         actions = super().get_actions(request)

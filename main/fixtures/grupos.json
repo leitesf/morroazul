@@ -295,6 +295,16 @@
                 "view_beneficio",
                 "main",
                 "beneficio"
+            ],
+            [
+                "view_pedido",
+                "main",
+                "pedido"
+            ],
+            [
+                "fazer_pedido",
+                "main",
+                "pedido"
             ]
         ]
     }
@@ -423,6 +433,11 @@
                 "view_usuario",
                 "main",
                 "usuario"
+            ],
+            [
+                "view_pedido",
+                "main",
+                "pedido"
             ]
         ]
     }
@@ -446,6 +461,16 @@
                 "view_beneficio",
                 "main",
                 "beneficio"
+            ],
+            [
+                "view_pedido",
+                "main",
+                "pedido"
+            ],
+            [
+                "fazer_pedido",
+                "main",
+                "pedido"
             ]
         ]
     }

@@ -2,6 +2,13 @@
 {% load bootstrap_icons %}
 {% load bootstrap5 %}
 {% block content_title %}{{ beneficio.nome }}{% endblock %}
+{% block page_actions %}
+    {% if pode_comprar %}
+        <a href="{{ beneficio.get_buy_url }}" class="btn btn-success float-right">
+            <i class="fa fa-cart-plus"></i> &nbsp; Comprar
+        </a>
+    {% endif %}
+{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">

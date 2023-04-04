@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from main.forms import PasswordForm
-from main.models import Cliente, Usuario, NotaFiscal, Transportador, Beneficio
+from main.models import Cliente, Usuario, NotaFiscal, Transportador, Beneficio, Pedido
 from main.utils import gerar_menu
 
 
@@ -45,7 +45,31 @@ def show_beneficio(request, beneficio_id):
     beneficio = get_object_or_404(Beneficio, id=beneficio_id)
     side_menu_list = gerar_menu(request.user, ativo='beneficio')
     pode_ver_estoque = request.user.has_perm('main.add_beneficio')
+    pode_comprar = request.user.has_perm('main.fazer_pedido') and beneficio.estoque > 0
     return render(request, 'beneficio.html', locals())
+
+
+@permission_required('main.fazer_pedido')
+def fazer_pedido(request, beneficio_id):
+    beneficio = get_object_or_404(Beneficio, id=beneficio_id)
+    usuario = request.user
+    valor = beneficio.pontos
+    if not beneficio.estoque > 0:
+        messages.error(request, 'Não existe estoque do produto')
+        return redirect(beneficio.get_absolute_url())
+    if valor > usuario.saldo_atual():
+        messages.error(request, 'Você não possui saldo para realizar essa transação')
+        return redirect(beneficio.get_absolute_url())
+    pedido = Pedido(beneficio=beneficio, usuario=usuario, pontos=valor)
+    try:
+        pedido.save()
+        beneficio.estoque -= 1
+        beneficio.save()
+        messages.success(request, 'Pedido realizado com sucesso')
+        return redirect(beneficio.get_absolute_url())
+    except:
+        messages.error(request, 'Não foi possível realizar o pedido')
+        return redirect(beneficio.get_absolute_url())
 
 
 @permission_required('main.add_usuario')
