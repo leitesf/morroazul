@@ -51,5 +51,45 @@
             </div>
         {% endif %}
     </div>
+    <div class="container">
+        <br>
+        <h5>Pedidos</h5>
+        {% if transportador.usuario.pedido_set.exists %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Benefício</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Situação</th>
+                    <th scope="col">Pontos</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for pedido in transportador.usuario.pedido_set.all %}
+                    <tr>
+                        <td>
+                            <a class='text-reset text-decoration-none' href="{{ pedido.get_absolute_url }}">{% bs_icon 'info-square'%}</a>
+                        </td>
+                        <td>{{ pedido.beneficio }}</td>
+                        <td>{{ pedido.data }}</td>
+                        <td><span class="badge bg-{{ pedido.get_status_formatado.0 }}">{{ pedido.get_status_formatado.1 }}</span></td>
+                        <td>{{ pedido.pontos }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="4">Total</td>
+                    <td>{{ transportador.usuario.pontos_gastos }}</td>
+                </tr>
+                </tfoot>
+            </table>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Não existem pedidos cadastrados para este usuário.
+            </div>
+        {% endif %}
+    </div>
 
 {% endblock %}
