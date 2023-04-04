@@ -94,7 +94,7 @@ class BeneficioAdmin(admin.ModelAdmin):
         user = get_request().user
         pode_visualizar = user.has_perm('main.view_beneficio')
         pode_editar = user.has_perm('main.change_beneficio')
-        pode_comprar = user.has_perm('main.fazer_pedido') and obj.estoque>0
+        pode_comprar = user.has_perm('main.fazer_pedido') and 0 < obj.estoque < user.saldo_atual()
         return links_no_admin(obj, pode_visualizar, pode_editar, pode_comprar)
 
     get_links.short_description = '#'

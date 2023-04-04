@@ -1,6 +1,8 @@
 from django.utils.safestring import mark_safe
 from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 
+from main import models
+
 
 def gerar_menu(usuario, ativo=None):
     side_menu_list = [
@@ -141,3 +143,14 @@ def links_no_admin(objeto, pode_visualizar, pode_editar, pode_comprar=None):
         links = links + "<a class='text-reset text-decoration-none' href='{}' title='Comprar'>{}</a>".format(
             objeto.get_buy_url(), bs_icon('cart'))
     return mark_safe(links)
+
+
+def badge_status(status):
+    if status == models.StatusPedido.PENDENTE:
+        return 'light', 'Pendente'
+    elif status == models.StatusPedido.CANCELADO:
+        return 'danger', 'Cancelado'
+    elif status == models.StatusPedido.APROVADO:
+        return 'primary', 'Aprovado'
+    elif status == models.StatusPedido.ENTREGUE:
+        return 'success', 'Entregue'

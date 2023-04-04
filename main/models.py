@@ -6,6 +6,8 @@ from django.dispatch import receiver
 from localflavor.br.models import BRStateField, BRCNPJField, BRCPFField
 from solo.models import SingletonModel
 
+from main.utils import badge_status
+
 
 class Pessoa(models.Model):
     nome = models.CharField("Nome", max_length=100)
@@ -299,3 +301,6 @@ class Pedido(models.Model):
 
     def get_delete_url(self):
         return '/admin/main/pedido/{}/delete/'.format(self.id)
+
+    def get_status_formatado(self):
+        return badge_status(self.status)
