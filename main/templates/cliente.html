@@ -80,7 +80,13 @@
                         <td>{{ pedido.beneficio }}</td>
                         <td>{{ pedido.data }}</td>
                         <td><span class="badge bg-{{ pedido.get_status_formatado.0 }}">{{ pedido.get_status_formatado.1 }}</span></td>
-                        <td>{{ pedido.pontos }}</td>
+                        <td>
+                            {% if pedido.cancelado %}
+                                <del>{{ pedido.pontos }}</del>
+                            {% else %}
+                                {{ pedido.pontos }}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

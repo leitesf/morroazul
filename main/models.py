@@ -232,7 +232,7 @@ class Usuario(AbstractUser):
         return pontos
 
     def pontos_gastos(self):
-        return self.pedido_set.aggregate(Sum('pontos'))['pontos__sum'] or 0
+        return self.pedido_set.exclude(status=StatusPedido.CANCELADO).aggregate(Sum('pontos'))['pontos__sum'] or 0
 
     def saldo_atual(self):
         return self.pontos_recebidos() - self.pontos_gastos()
@@ -312,3 +312,6 @@ class Pedido(models.Model):
 
     def get_status_formatado(self):
         return badge_status(self.status)
+
+    def cancelado(self):
+        return True if self.status == StatusPedido.CANCELADO else False
