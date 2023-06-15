@@ -119,11 +119,21 @@ def criar_usuario(sender, instance, **kwargs):
         instance.usuario.atualizar_usuario(instance)
 
 
+PRODUTO_CHOICES = (
+    ('Brita 1', 'Brita 1'),
+    ('Brita 0', 'Brita 0'),
+    ('Pó de pedra', 'Pó de pedra'),
+    ('Brita corrida', 'Brita corrida'),
+    ('BGS', 'BGS'),
+    ('Brita 1/2', 'Brita 1/2'),
+    ('Pedra rachão', 'Pedra rachão')
+)
+
+
 class NotaFiscal(models.Model):
     numero = models.CharField("Número", max_length=100, unique=True)
-    item = models.CharField("Item", max_length=100)
-    descricao = models.CharField("Descrição", max_length=100)
-    valor = models.DecimalField("Valor", decimal_places=2, max_digits=13)
+    produto = models.CharField("Produto", max_length=100, choices=PRODUTO_CHOICES)
+    toneladas = models.DecimalField("Toneladas", decimal_places=2, max_digits=13)
     km = models.IntegerField("Distância em Km")
     cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.RESTRICT)
     transportador = models.ForeignKey(Transportador, null=True, blank=True, on_delete=models.RESTRICT)
@@ -148,7 +158,7 @@ class NotaFiscal(models.Model):
         return '/admin/main/notafiscal/{}/delete/'.format(self.id)
 
     def get_valor_cliente(self):
-        return int(self.valor/ConfiguracaoPontuacao.objects.get().reais_por_ponto)
+        return int(self.toneladas/ConfiguracaoPontuacao.objects.get().toneladas_por_ponto)
 
     def get_valor_transportador(self):
         return int(self.km/ConfiguracaoPontuacao.objects.get().kms_por_ponto)
@@ -244,10 +254,10 @@ class ConfiguracaoPontuacao(SingletonModel):
         default=100,
         help_text="Quantos KM serão necessários para gerar 1 ponto pro transportador."
     )
-    reais_por_ponto = models.IntegerField(
-        "Reais por Ponto",
+    toneladas_por_ponto = models.IntegerField(
+        "Toneladas por Ponto",
         default=100,
-        help_text="Quantos reais serão necessários para gerar 1 ponto pro cliente."
+        help_text="Quantos toneladas serão necessários para gerar 1 ponto pro cliente."
     )
 
     def __str__(self):

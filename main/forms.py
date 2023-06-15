@@ -48,7 +48,7 @@ class TransportadorForm(ModelForm):
 class NotaFiscalForm(ModelForm):
     class Meta:
         model = NotaFiscal
-        fields = ['numero', 'item', 'descricao', 'valor', 'km', 'cliente', 'transportador']
+        fields = ['numero', 'produto', 'toneladas', 'km', 'cliente', 'transportador']
 
 
 class UsuarioForm(ModelForm):

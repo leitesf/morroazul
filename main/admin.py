@@ -60,10 +60,10 @@ class TransportadorAdmin(admin.ModelAdmin):
 
 
 class NotaFiscalAdmin(admin.ModelAdmin):
-    list_display = ('get_links', 'numero', 'item', 'valor', 'km', 'cliente', 'pontuacao_cliente', 'transportador', 'pontuacao_transportador')
-    search_fields = ('numero', 'item')
+    list_display = ('get_links', 'numero', 'produto', 'toneladas', 'km', 'cliente', 'pontuacao_cliente', 'transportador', 'pontuacao_transportador')
+    search_fields = ('numero', )
     ordering = ('numero',)
-    list_filter = ('cliente', 'transportador')
+    list_filter = ('cliente', 'transportador', 'produto')
     list_display_links = None
 
     form = NotaFiscalForm
