@@ -10,10 +10,10 @@ from main.utils import links_no_admin
 
 
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ('get_links', 'nome', 'nome_fantasia', 'telefone', 'bairro', 'cidade', 'estado')
-    search_fields = ('nome', 'nome_fantasia', 'telefone', 'bairro', 'cidade', 'estado')
+    list_display = ('get_links', 'nome', 'nome_fantasia', 'telefone', 'cidade', 'estado')
+    search_fields = ('nome', 'nome_fantasia', 'telefone', 'cidade', 'estado')
     ordering = ('nome',)
-    list_filter = ('bairro', 'cidade', 'estado')
+    list_filter = ('cidade', 'estado')
     list_display_links = None
 
     form = ClienteForm
@@ -35,10 +35,10 @@ class ClienteAdmin(admin.ModelAdmin):
 
 
 class TransportadorAdmin(admin.ModelAdmin):
-    list_display = ('get_links', 'nome', 'telefone', 'bairro', 'cidade', 'estado')
-    search_fields = ('nome', 'telefone', 'bairro', 'cidade', 'estado')
+    list_display = ('get_links', 'nome', 'telefone', 'cidade', 'estado')
+    search_fields = ('nome', 'telefone', 'cidade', 'estado')
     ordering = ('nome',)
-    list_filter = ('bairro', 'cidade', 'estado')
+    list_filter = ('cidade', 'estado')
     list_display_links = None
 
     form = TransportadorForm

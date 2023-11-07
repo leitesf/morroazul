@@ -8,7 +8,7 @@ from django.forms.widgets import CheckboxSelectMultiple
 class ClienteForm(ModelForm):
     class Meta:
         model = Cliente
-        fields = ['nome', 'nome_fantasia', 'cpf', 'cnpj', 'email', 'data_nascimento', 'telefone', 'endereco', 'bairro', 'cidade', 'estado']
+        fields = ['nome', 'nome_fantasia', 'cpf', 'cnpj', 'email', 'data_nascimento', 'telefone', 'endereco', 'cidade', 'estado']
 
     def clean_cpf(self):
         cpf = self.cleaned_data.get('cpf')
@@ -30,7 +30,7 @@ class ClienteForm(ModelForm):
 class TransportadorForm(ModelForm):
     class Meta:
         model = Transportador
-        fields = ['nome', 'cpf', 'cnpj', 'email', 'data_nascimento', 'telefone', 'endereco', 'bairro', 'cidade', 'estado']
+        fields = ['nome', 'cpf', 'cnpj', 'email', 'data_nascimento', 'telefone', 'endereco', 'cidade', 'estado']
 
     def clean_cpf(self):
         cpf = self.cleaned_data.get('cpf')
