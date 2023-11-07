@@ -34,8 +34,8 @@ INSTALLED_APPS = [
     'django_bootstrap_icons',
     'django_middleware_global_request',
     'solo',
-    'website'
-    # 'fixture_magic'
+    'website',
+    'fixture_magic'
 ]
 
 MIDDLEWARE = [
@@ -108,6 +108,9 @@ STATIC_URL = 'main/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'main.Usuario'
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 LOGOUT_REDIRECT_URL = 'website:home'
 
 JAZZMIN_SETTINGS = {
