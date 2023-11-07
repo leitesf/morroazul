@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 {% load bootstrap_icons %}
 {% load bootstrap5 %}
-{% block content_title %}{{ cliente.nome }}{% endblock %}
+{% block content_title %}
+    {% if cliente.nome_fantasia %}
+        {{cliente.nome_fantasia}} ({{cliente.nome}})
+    {% else %}
+        {{ cliente.nome }}
+    {% endif %}
+{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">

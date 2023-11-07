@@ -10,8 +10,8 @@ from main.utils import links_no_admin
 
 
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ('get_links', 'nome', 'telefone', 'bairro', 'cidade', 'estado')
-    search_fields = ('nome', 'telefone', 'bairro', 'cidade', 'estado')
+    list_display = ('get_links', 'nome', 'nome_fantasia', 'telefone', 'bairro', 'cidade', 'estado')
+    search_fields = ('nome', 'nome_fantasia', 'telefone', 'bairro', 'cidade', 'estado')
     ordering = ('nome',)
     list_filter = ('bairro', 'cidade', 'estado')
     list_display_links = None
