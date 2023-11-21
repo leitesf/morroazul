@@ -118,6 +118,7 @@ uploaded_images/
 
 # Rope project settings
 .ropeproject
+.history
 
 # mkdocs documentation
 /site
