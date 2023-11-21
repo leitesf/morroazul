@@ -132,11 +132,15 @@ PRODUTO_CHOICES = (
 
 class NotaFiscal(models.Model):
     numero = models.CharField("Número", max_length=100, unique=True)
+    data = models.DateField("Data", blank=True, null=True)
     produto = models.CharField("Produto", max_length=100, choices=PRODUTO_CHOICES)
     toneladas = models.DecimalField("Toneladas", decimal_places=2, max_digits=13)
+    valor_produtos = models.DecimalField("Valor dos Produtos", decimal_places=2, max_digits=13)
+    valor_frete = models.DecimalField("Valor do Frete", decimal_places=2, max_digits=13)
     km = models.IntegerField("Distância em Km")
     cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.RESTRICT)
     transportador = models.ForeignKey(Transportador, null=True, blank=True, on_delete=models.RESTRICT)
+    vendedor = models.ForeignKey('main.Usuario', null=False, blank=False, on_delete=models.RESTRICT)
     pontuacao_cliente = models.IntegerField("Pontuação do Cliente")
     pontuacao_transportador = models.IntegerField("Pontuação do Transportador")
 
@@ -162,6 +166,10 @@ class NotaFiscal(models.Model):
 
     def get_valor_transportador(self):
         return int(self.km/ConfiguracaoPontuacao.objects.get().kms_por_ponto)
+    
+    @property
+    def valor_total(self):
+        return self.valor_frete + self.valor_produtos
 
 
 class Beneficio(models.Model):

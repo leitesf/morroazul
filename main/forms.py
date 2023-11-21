@@ -1,3 +1,8 @@
+from collections.abc import Mapping
+from typing import Any
+from django.core.files.base import File
+from django.db.models.base import Model
+from django.forms.utils import ErrorList
 from .models import *
 from django.forms import ModelForm, ValidationError, ModelChoiceField, CharField, Textarea, PasswordInput, \
     ModelMultipleChoiceField
@@ -48,7 +53,14 @@ class TransportadorForm(ModelForm):
 class NotaFiscalForm(ModelForm):
     class Meta:
         model = NotaFiscal
-        fields = ['numero', 'produto', 'toneladas', 'km', 'cliente', 'transportador']
+        fields = ['numero', 'data', 'produto', 'toneladas', 'valor_produtos', 'valor_frete', 'km', 'cliente', 'transportador', 'vendedor']
+
+    def __init__(self, *args, **kwargs):
+        super(NotaFiscalForm, self).__init__(*args, **kwargs)
+        self.fields['vendedor'].queryset = Usuario.objects.filter(groups=Group.objects.get(name='Vendedor'))
+        self.fields['vendedor'].widget.can_add_related = False
+        self.fields['vendedor'].widget.can_change_related = False
+        self.fields['vendedor'].widget.can_delete_related = False
 
 
 class UsuarioForm(ModelForm):
