@@ -3,6 +3,7 @@ from django.utils.safestring import mark_safe
 from django_bootstrap_icons.templatetags.bootstrap_icons import bs_icon
 from django_middleware_global_request import get_request
 from solo.admin import SingletonModelAdmin
+from daterange_filter.filter import DateRangeFilter
 
 from main.forms import ClienteForm, UsuarioForm, TransportadorForm, NotaFiscalForm
 from main.models import Cliente, Usuario, NotaFiscal, Transportador, ConfiguracaoPontuacao, Beneficio, Pedido
@@ -60,10 +61,16 @@ class TransportadorAdmin(admin.ModelAdmin):
 
 
 class NotaFiscalAdmin(admin.ModelAdmin):
-    list_display = ('get_links', 'numero', 'produto', 'toneladas', 'km', 'cliente', 'pontuacao_cliente', 'transportador', 'pontuacao_transportador')
+    list_display = ('get_links', 'numero', 'valor_produtos', 'valor_frete', 'valor_total', 'cliente', 'pontuacao_cliente', 'transportador', 'pontuacao_transportador')
     search_fields = ('numero', )
     ordering = ('numero',)
-    list_filter = ('cliente', 'transportador', 'produto')
+    list_filter = (
+        ('cliente', admin.RelatedOnlyFieldListFilter), 
+        ('transportador', admin.RelatedOnlyFieldListFilter), 
+        ('vendedor', admin.RelatedOnlyFieldListFilter), 
+        ('data', DateRangeFilter),
+        'produto'
+    )
     list_display_links = None
 
     form = NotaFiscalForm

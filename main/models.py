@@ -138,9 +138,9 @@ class NotaFiscal(models.Model):
     valor_produtos = models.DecimalField("Valor dos Produtos", decimal_places=2, max_digits=13)
     valor_frete = models.DecimalField("Valor do Frete", decimal_places=2, max_digits=13)
     km = models.IntegerField("Distância em Km")
-    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.RESTRICT)
-    transportador = models.ForeignKey(Transportador, null=True, blank=True, on_delete=models.RESTRICT)
-    vendedor = models.ForeignKey('main.Usuario', null=False, blank=False, on_delete=models.RESTRICT)
+    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.RESTRICT, verbose_name="Cliente")
+    transportador = models.ForeignKey(Transportador, null=True, blank=True, on_delete=models.RESTRICT, verbose_name="Transportador")
+    vendedor = models.ForeignKey('main.Usuario', null=False, blank=False, on_delete=models.RESTRICT, verbose_name="Vendedor")
     pontuacao_cliente = models.IntegerField("Pontuação do Cliente")
     pontuacao_transportador = models.IntegerField("Pontuação do Transportador")
 
