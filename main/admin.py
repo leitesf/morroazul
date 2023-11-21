@@ -15,6 +15,7 @@ class ClienteAdmin(admin.ModelAdmin):
     ordering = ('nome',)
     list_filter = ('cidade', 'estado')
     list_display_links = None
+    list_per_page = 20
 
     form = ClienteForm
 
