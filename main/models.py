@@ -162,7 +162,7 @@ class NotaFiscal(models.Model):
         return '/admin/main/notafiscal/{}/delete/'.format(self.id)
 
     def get_valor_cliente(self):
-        return int(self.toneladas/ConfiguracaoPontuacao.objects.get().toneladas_por_ponto)
+        return int(self.valor_total/ConfiguracaoPontuacao.objects.get().reais_por_ponto)
 
     def get_valor_transportador(self):
         return int(self.km/ConfiguracaoPontuacao.objects.get().kms_por_ponto)
@@ -262,10 +262,10 @@ class ConfiguracaoPontuacao(SingletonModel):
         default=100,
         help_text="Quantos KM serão necessários para gerar 1 ponto pro transportador."
     )
-    toneladas_por_ponto = models.IntegerField(
-        "Toneladas por Ponto",
+    reais_por_ponto = models.IntegerField(
+        "Reais por Ponto",
         default=100,
-        help_text="Quantos toneladas serão necessários para gerar 1 ponto pro cliente."
+        help_text="Quantos reais serão necessários para gerar 1 ponto pro cliente."
     )
 
     def __str__(self):
