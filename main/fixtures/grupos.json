@@ -484,5 +484,33 @@
             ]
         ]
     }
+},
+{
+    "model": "auth.group",
+    "fields": {
+        "name": "Vendedor",
+        "permissions": [
+            [
+                "change_usuario",
+                "main",
+                "usuario"
+            ],
+            [
+                "view_beneficio",
+                "main",
+                "beneficio"
+            ],
+            [
+                "view_pedido",
+                "main",
+                "pedido"
+            ],
+            [
+                "fazer_pedido",
+                "main",
+                "pedido"
+            ]
+        ]
+    }
 }
 ]
