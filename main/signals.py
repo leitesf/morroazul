@@ -3,4 +3,3 @@ def definir_pontuacao(sender, instance, **kwargs):
         pass
     else:
         instance.pontuacao_cliente = instance.get_valor_cliente()
-        instance.pontuacao_transportador = instance.get_valor_transportador()

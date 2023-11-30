@@ -98,12 +98,6 @@ class Transportador(Pessoa):
     def get_delete_url(self):
         return '/admin/main/transportador/{}/delete/'.format(self.id)
 
-    def get_pontuacao_total(self):
-        if self.notafiscal_set.exists():
-            return self.notafiscal_set.aggregate(Sum('pontuacao_transportador'))['pontuacao_transportador__sum']
-        else:
-            return 0
-
 
 @receiver(pre_save, sender=Transportador)
 def criar_usuario(sender, instance, **kwargs):
@@ -142,7 +136,6 @@ class NotaFiscal(models.Model):
     transportador = models.ForeignKey(Transportador, null=True, blank=True, on_delete=models.RESTRICT, verbose_name="Transportador")
     vendedor = models.ForeignKey('main.Usuario', null=False, blank=False, on_delete=models.RESTRICT, verbose_name="Vendedor")
     pontuacao_cliente = models.IntegerField("Pontuação do Cliente")
-    pontuacao_transportador = models.IntegerField("Pontuação do Transportador")
 
     class Meta:
         verbose_name = 'Nota Fiscal'
@@ -164,9 +157,6 @@ class NotaFiscal(models.Model):
     def get_valor_cliente(self):
         return int(self.valor_total/ConfiguracaoPontuacao.objects.get().reais_por_ponto)
 
-    def get_valor_transportador(self):
-        return int(self.km/ConfiguracaoPontuacao.objects.get().kms_por_ponto)
-    
     @property
     def valor_total(self):
         return self.valor_frete + self.valor_produtos
@@ -245,8 +235,6 @@ class Usuario(AbstractUser):
         pontos=0
         for cliente in self.cliente_set.all():
             pontos += cliente.get_pontuacao_total()
-        for transportador in self.transportador_set.all():
-            pontos += transportador.get_pontuacao_total()
         return pontos
 
     def pontos_gastos(self):
@@ -257,11 +245,6 @@ class Usuario(AbstractUser):
 
 
 class ConfiguracaoPontuacao(SingletonModel):
-    kms_por_ponto = models.IntegerField(
-        "KMs por Ponto",
-        default=100,
-        help_text="Quantos KM serão necessários para gerar 1 ponto pro transportador."
-    )
     reais_por_ponto = models.IntegerField(
         "Reais por Ponto",
         default=100,
